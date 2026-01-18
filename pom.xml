@@ -16,6 +16,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>ms-devolucion</name>
   <description>Switch bancario devolucion</description>
+  <!-- Force Update V1 -->
 
   <properties>
     <java.version>21</java.version>
