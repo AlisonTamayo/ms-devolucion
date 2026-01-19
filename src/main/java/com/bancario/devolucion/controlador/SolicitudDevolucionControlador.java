@@ -25,8 +25,15 @@ public class SolicitudDevolucionControlador {
 
     @PostMapping
     @Operation(summary = "Crear solicitud de devolución", description = "Inicia un proceso de retorno basado en ISO 20022.")
-    public ResponseEntity<SolicitudDevolucionDTO> crear(@RequestBody SolicitudCreacionDTO req) {
-        return new ResponseEntity<>(service.create(req), HttpStatus.CREATED);
+    public ResponseEntity<?> crear(@RequestBody SolicitudCreacionDTO req) {
+        try {
+            return new ResponseEntity<>(service.create(req), HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("DEBUG CRITICO DEVOLUCION: ", e);
+            return ResponseEntity.badRequest().body(java.util.Map.of(
+                    "codigo", "INTERNAL_DEBUG_ERROR",
+                    "mensaje", "Error interno: " + e.getClass().getSimpleName() + " - " + e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")

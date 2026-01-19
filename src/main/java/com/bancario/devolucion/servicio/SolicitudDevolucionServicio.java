@@ -34,7 +34,9 @@ public class SolicitudDevolucionServicio {
         }
 
         if (repo.existsById(req.getId())) {
-            throw new RuntimeException("DEVOLUCION_EXISTS: La solicitud de devolución ya existe.");
+            log.warn("Idempotencia Devolución: Solicitud {} ya existe. Retornando existente.", req.getId());
+            SolicitudDevolucion existing = repo.findById(req.getId()).orElseThrow();
+            return mapper.toDTO(existing);
         }
 
         SolicitudDevolucion e = new SolicitudDevolucion();
