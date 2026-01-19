@@ -19,6 +19,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/devoluciones")
 @RequiredArgsConstructor
 @Tag(name = "Gestión de Devoluciones", description = "Endpoints para manejo de Returns (pacs.004)")
+// V2 FINAL DEBUG FIX
 public class SolicitudDevolucionControlador {
 
     private final SolicitudDevolucionServicio service;
