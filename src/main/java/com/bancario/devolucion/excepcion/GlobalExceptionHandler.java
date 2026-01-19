@@ -22,8 +22,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> handleGenericException(Exception ex, HttpServletRequest request) {
         log.error("Unhandled Exception: ", ex);
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR",
-                "Error inesperado en servicio devoluciones", request);
+        // CRITICAL DEBUG CHANGE: Exposing real error
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_FAIL_V3",
+                "DEBUG INFO: " + ex.getClass().getSimpleName() + " - " + ex.getMessage(), request);
     }
 
     private ResponseEntity<ErrorDTO> buildResponse(HttpStatus status, String codigo, String mensaje,
