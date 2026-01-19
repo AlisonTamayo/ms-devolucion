@@ -19,22 +19,14 @@ import java.util.UUID;
 @RequestMapping("/api/v1/devoluciones")
 @RequiredArgsConstructor
 @Tag(name = "Gestión de Devoluciones", description = "Endpoints para manejo de Returns (pacs.004)")
-// V2 FINAL DEBUG FIX
 public class SolicitudDevolucionControlador {
 
     private final SolicitudDevolucionServicio service;
 
     @PostMapping
     @Operation(summary = "Crear solicitud de devolución", description = "Inicia un proceso de retorno basado en ISO 20022.")
-    public ResponseEntity<?> crear(@RequestBody SolicitudCreacionDTO req) {
-        try {
-            return new ResponseEntity<>(service.create(req), HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.error("DEBUG CRITICO DEVOLUCION: ", e);
-            return ResponseEntity.badRequest().body(java.util.Map.of(
-                    "codigo", "INTERNAL_DEBUG_ERROR",
-                    "mensaje", "Error interno: " + e.getClass().getSimpleName() + " - " + e.getMessage()));
-        }
+    public ResponseEntity<SolicitudDevolucionDTO> crear(@RequestBody SolicitudCreacionDTO req) {
+        return new ResponseEntity<>(service.create(req), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
